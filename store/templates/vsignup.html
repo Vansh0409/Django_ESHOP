@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-8 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border rounded">Create account - Vendor</h3>
+            <form action="/vsignup" method="POST">
+                {% csrf_token %}
+                {% if verror %}
+                <div class="alert alert-danger" role="alert">
+                    {{verror}}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <!-- First Name -->
+                    <label for="">Name</label>
+                    <input type="name" name="name" id="" value="{{values.name}}" class="form-control" placeholder="">
+                    <small id="helpId" class="text-muted">Please Enter your name here.</small>
+                </div>
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label for="">Shop Name</label>
+                    <input type="shop_name" name="shop_name" id="" value="{{values.shop_name}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Please Enter your shop name here.</small>
+                </div>
+                <div class="form-group">
+                    <!-- Phone Number -->
+                    <label for="">Phone Number</label>
+                    <input type="phone" name="vphone" id="" value="{{values.vphone}}" class="form-control"
+                           placeholder="1234567890">
+                    <small id="helpId" class="text-muted">Please Enter your phone number here.</small>
+                </div>
+                <div class="form-group">
+                    <!-- Email -->
+                    <label for="">Email</label>
+                    <input required type="email" name="vemail" id="" value="{{values.vemail}}" class="form-control"
+                           placeholder="example@gmail.com">
+                    <small id="helpId" class="text-muted">Please Enter your email address here.</small>
+                </div>
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" name="vpassword" id="" value="{{values.vpassword}}" class="form-control"
+                           placeholder="******">
+                    <small id="helpId" class="text-muted">Please Enter a strong Password</small>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Create Account">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

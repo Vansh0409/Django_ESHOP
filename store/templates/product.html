@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-8 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border rounded">Add your Product here</h3>
+            <form action="/signup" method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <!-- First Name -->
+                    <label for="">Name</label>
+                    <input type="name" name="name" id="" value="{{values.name}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter name of product here.</small>
+                </div>
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label for="">price</label>
+                    <input type="price" name="price" id="" value="{{values.price}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter price of product here.</small>
+                </div>
+                <div class="form-group">
+                    <!-- Email -->
+                    <label for="">Category</label>
+                    <input required type="category" name="category" id="" value="{{values.category}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter  here.</small>
+                </div>
+                <div class="form-group">
+                    <!-- Phone Number -->
+                    <label for="">Description</label>
+                    <input type="Description" name="description" id="" value="{{values.desc}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter description of product here.</small>
+                </div>
+                <div class="form-group">
+                    <!-- Phone Number -->
+                    <label for="UploadFile">Image</label>
+                    <input class="file-upload-input" type="file" name="image" id="" value="{{values.image}}"
+                           onchange="readURL(this)" accept="Image/*" placeholder="">
+                    <small id="helpId" class="text-muted">Enter image of product here.</small>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Upload product">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

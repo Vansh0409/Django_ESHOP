@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title%}{{product.product_name}} - ShopMyKart {% endblock %}
+{% block content %}
+<div class="container my-4 bg-light text-black">
+    <div class="row">
+        <div class="col">
+            <div class="row mx-4">
+                <img src="{{product.image.url}}" height="300px">
+            </div>
+
+            <div class="card-footer">
+                <a class="btn btn-block btn-dark border" href="/products/{{product.id}}/review" role="button">Review</a>
+            </div>
+        </div>
+        <div class="col-md-8 my-10">
+            <h5>{{product.name}}</h5>
+            <h5>Rs-{{product.price}}</h5>
+            <p>{{product.desc}}</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

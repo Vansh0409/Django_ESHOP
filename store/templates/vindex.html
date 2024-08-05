@@ -1,0 +1,112 @@
+{% extends 'vbase.html' %}
+
+{% block content %}
+
+{% load cart %}
+
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <p class="display-4">Vendor - {{product.vendor.user.username}}</p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Sr No.</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img style="height: 75px" class="rounded-circle" src="{{product.image.url}}" alt=""></td>
+                <td>{{product.name}}</td>
+                <td>₹ {{product.price}}</td>
+                <td>
+                <div class="row  no-gutters">
+                            <div class="text-center col">{{product.quantity}}</div>
+                            <form action="/vindex/{{product.id}}" class="col-2" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="quantity" value='{{product.quantity}}'>
+                                <input hidden type="text" name="remove" value='True'>
+                                <input type="submit" value=" + " class="btn btn-block btn-dark">
+                            </form>
+                        </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+            <tfoot>
+            </tfoot>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</div>
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-8 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border rounded">Add your Product here</h3>
+            <form action="/product" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+
+                    <label for="">Name</label>
+                    <input type="name" name="name" id="" value="{{values.name}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter name of product here.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="">price</label>
+                    <input type="price" name="price" id="" value="{{values.price}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter price of product here.</small>
+                </div>
+                <div class="form-group">
+                    <label for="">Quantity</label>
+                    <input type="quantity" name="quantity" id="" value="{{values.quantity}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter quantity of product here.</small>
+                </div>
+                <div class="form-group">
+
+                    <label for="">Category</label>
+                    <input required type="category" name="category" id="" value="{{values.category}}"
+                           class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter here.</small>
+                </div>
+                <div class="form-group">
+
+                    <label for="">Description</label>
+                    <input type="Description" name="desc" id="" value="{{values.desc}}" class="form-control"
+                           placeholder="">
+                    <small id="helpId" class="text-muted">Enter description of product here.</small>
+                </div>
+                <div class="form-group">
+
+                    <label for="">Image</label>
+                    <input type="file" name="image" id="" value="{{values.image}}" class="form-control">
+                    <small id="helpId" class="text-muted">Enter image of product here.</small>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Upload product">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+{% endblock %}

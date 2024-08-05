@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-4 mt-4 mb-4 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border rounded">Login Here - Vendor</h3>
+            <form action="/vlogin" method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <!-- Email -->
+                    <label for="">Email</label>
+                    <input required type="vemail" name="vemail" id="" value="{{values.vemail}}" class="form-control" placeholder="example@gmail.com">
+                    <small id="helpId" class="text-muted">Please Enter your email address here.</small>
+                </div>
+                    <!-- Password -->
+                    <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="vpassword" name="vpassword" id="" value="{{values.vpassword}}" class="form-control" placeholder="******">
+                    <small id="helpId" class="text-muted">Please Enter a strong Password</small>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Vlogin">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

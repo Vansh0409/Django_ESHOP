@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+
+
+<div class="container-fluid mt-3 mx-auto">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="list-group">
+                <a href="/" class="list-group-item list-group-item-action">All products</a>
+                {% for category in categories %}
+                <a href="/?category={{category.id}}"
+                   class="list-group-item list-group-item-action">{{category.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="products" class="col-lg-9 mx-auto">
+            <div class="row mx-auto">
+                {% for product in products %}
+                <div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;">
+                    <img class="card-img-top" src="{{product.image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-title">{{product.name}}</p>
+                        <p class="card-text">₹ {{product.price}}</p>
+                        <p class="card-text">Quantity available = {{product.quantity}}</p>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="btn btn-block btn-dark border"><a href="products/{{product.id}}">
+                            <button class="btn btn-dark cart">Quick View</button>
+                        </a></div>
+                        {% if product|quantity %}
+                        {% if product|is_in_cart:request.session.cart %}
+                        <div class="row  no-gutters">
+                            <form action="/?category={{category.id}}/#{{product.id}}" class="col-2" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="product" value='{{product.id}}'>
+                                <input hidden type="text" name="remove" value='True'>
+                                <input type="submit" value=" - " class="btn btn-block btn-dark">
+                            </form>
+                            <div class="text-center col">{{product|cart_quantity:request.session.cart}} in cart</div>
+                            <form action="/?category={{category.id}}/#{{product.id}}" class="col-2" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="product" value='{{product.id}}'>
+                                <input type="submit" value=" + " class="btn btn-block btn-dark">
+                            </form>
+                        </div>
+
+                        {% else %}
+                        <form action="/?category={{category.id}}/#{{product.id}}" method="POST" class="btn-block">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value='{{product.id}}'>
+                            <input type="submit" class="btn btn-block btn-dark border" value="Add to Cart">
+                        </form>
+                        {% endif %}
+                        {% else %}
+                        <td><small class="badge badge-info mx-auto">Not available in stock</small></td>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+{% endblock %}
